@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Pasajero {
@@ -20,6 +21,7 @@ private:
     }
 
 public:
+
     Pasajero(float precioRuta) : nombre(""), apellido(""), dni(0), numeroAsiento(""),
         precioCabina(0.0f), precioBodega(0.0f), precioAsiento(0.0f), precioRuta(precioRuta) {
     }
@@ -68,7 +70,7 @@ public:
         return precioAdicional;
     }
 
-    float calcularPrecioTotal() {
+    float calcularPrecioPasajero() {
         float precioAdicional = this->calcularPrecioAdicional();
         return this->precioRuta + precioAdicional + (0.18f * (this->precioRuta + precioAdicional)) + 45.0f + 30.0f;
     }
@@ -81,6 +83,6 @@ public:
         cout << "\t\t\t|\t\tEquipaje de cabina: " << (this->precioCabina ? "Sí" : "No") << endl;
         cout << "\t\t\t|\t\tEquipaje de bodega: " << (this->precioBodega ? "Sí" : "No") << endl;
         cout << "\t\t\t|\t\tAsiento elegido: " << (this->numeroAsiento.empty() ? "No" : this->numeroAsiento) << endl;
-        cout << "\t\t\t|\t\tPrecio total: S/." << this->calcularPrecioTotal() << endl;
+        cout << "\t\t\t|\t\tPrecio total: S/." << this->calcularPrecioPasajero() << endl;
     }
 };

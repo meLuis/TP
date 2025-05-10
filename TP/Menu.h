@@ -170,7 +170,7 @@ public:
         string nombreArchivo = "reservas.txt";
         ListaReservas listaReservas;
         MapaRutas rutas;
-        GestorRutas gestor;/*
+        GestorRutas gestorRutas;/*
         PrecioTotal precio;*/
 
         auto validarFecha = [this](string& fecha) {
@@ -230,11 +230,11 @@ public:
         system("cls");
 
         string claveRuta = rutas.getSiglasLugar(origen) + "-" + rutas.getSiglasLugar(destino);
-        gestor.cargarDesdeArchivo("rutas.txt", claveRuta);
-        gestor.mostrarRutas();
+        gestorRutas.cargarDesdeArchivo("rutas.txt", claveRuta);
+        gestorRutas.mostrarRutas();
 
         cin >> opcionRuta;
-        Ruta rutaSeleccionada = gestor.getRuta(opcionRuta - 1);
+        Ruta rutaSeleccionada = gestorRutas.getRuta(opcionRuta - 1);
         //gestor.guardarRutaEnArchivo(opcionRuta-1, nombreArchivo);
 
         system("pause>0");
@@ -283,7 +283,7 @@ public:
         /*   Pasajero* pasajeros = new Pasajero[cantPasajeros];*/
         listaReservas.agregarReserva(reserva);
         listaReservas.guardarListaEnArchivo(nombreArchivo);
-        gestor.guardarRutaEnArchivo(opcionRuta - 1, nombreArchivo);
+        gestorRutas.guardarRutaEnArchivo(opcionRuta - 1, nombreArchivo);
 
 
         //string nombreArchivo = "reserva.txt";

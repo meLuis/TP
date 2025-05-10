@@ -101,21 +101,15 @@ public:
             }
         }
     }
-    void guardarRutaEnArchivo(int indice, string nombreArchivo) {
-        if (indice < 0 || indice >= rutas.size()) {
-            cout << "Índice fuera de rango." << endl;
-            return;
-        }
+    void guardarRutaEnArchivo(int indice,const string& nombreArchivo) {
+		Ruta ruta = getRuta(indice);
         ofstream archivo(nombreArchivo, ios::app);
         if (!archivo.is_open()) {
-            cout << "Error abriendo el archivo para guardar la ruta." << endl;
+            cout << "Error abriendo el archivo para guardar" << endl;
             return;
         }
 
-        archivo << rutas[indice].getHoraInicio() << "|";
-        archivo << rutas[indice].getHoraFin() << "|";
-        archivo << rutas[indice].getDuracion() << "|";
-        archivo << rutas[indice].getPrecio() << "\n";
+        archivo << ruta.getHoraInicio() << "|"<< ruta.getHoraFin() << "|"<< ruta.getDuracion() << "|"<< ruta.getPrecio() << "\n";
         archivo.close();
     }
 
