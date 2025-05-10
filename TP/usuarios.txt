@@ -1,0 +1,3 @@
+Gabriela|Tirado|gtirado@gmail.com|123|Administrador
+Luis|Espinoza|lespinoza@gmail.com|123|Administrador
+Andrea|Correa|acorrea@gmail.com|123|Administrador
