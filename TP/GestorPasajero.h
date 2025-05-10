@@ -6,12 +6,25 @@ class GestorPasajero {
 private:
 	vector<Pasajero> pasajeros;
 public:
-    Pasajero getPasajero(int indice) {
-        if (indice < 0 || indice >= pasajeros.size()) {
-            cout << "Índice fuera de rango." << endl;
-            return Pasajero(0);
-        }
-        return pasajeros[indice];
+	GestorPasajero() {}
+    GestorPasajero(vector<Pasajero>pasajeros) {
+		this->pasajeros = pasajeros;
     }
+
+	void guardarPasajerosEnArchivo(const string& nombreArchivo) {
+		ofstream archivo(nombreArchivo, ios::app);
+		if (!archivo) {
+			cout << "Error al abrir el archivo." << endl;
+			return;
+		}
+		for (auto& pasajero : this->pasajeros) {
+			archivo << pasajero.getNombre() << "|" << pasajero.getApellido() << "|"
+				<< pasajero.getDni() << "|" << pasajero.getNumeroAsiento() << "|"
+				<< pasajero.getPrecioCabina() << "|" << pasajero.getPrecioBodega() << "|"
+				<< pasajero.getPrecioAsiento() << "|" << pasajero.getPrecioRuta() << "|"
+				<< pasajero.getIdReserva() << endl;
+		}
+		archivo.close();
+	}
 
 };

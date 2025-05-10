@@ -1,3 +1,8 @@
 6748|12/12/2025|Arequipa (AQP)|Cajamarca (CJA)|2|10:00|12:45|2h45m|345
 4778|12/12/2025|Arequipa (AQP)|Cajamarca (CJA)|1|09:00|11:45|2h45m|355
 5363|12/12/2025|Arequipa (AQP)|Cajamarca (CJA)|2|07:45|10:30|2h45m|360
+9224|12/12/2025|Cajamarca (CJA)|Piura (PIU)|2|09:00|10:30|1h30m|215
+9749|12/12/2025|Chiclayo (CIX)|Piura (PIU)|2|07:45|08:30|0h45m|185
+1700|12/12/2025|Trujillo (TRU)|Cajamarca (CJA)|3|07:15|08:30|1h15m|235
+6066|12/12/2025|Trujillo (TRU)|Piura (PIU)|1|06:45|08:15|1h30m|250
+1542|12/12/2025|Chiclayo (CIX)|Piura (PIU)|2|09:00|09:45|0h45m|190

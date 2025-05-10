@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include "Pasajero.h"
 #include "MapaRutas.h"
 
 using namespace std;

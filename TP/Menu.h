@@ -5,6 +5,8 @@
 #include "ListaReservas.h"
 #include "Administrador.h"
 #include "GestorRutas.h"
+#include "GestorPasajero.h"
+#include "Pasajero.h"
 #include "Cliente.h"
 
 using namespace std;
@@ -167,10 +169,11 @@ public:
         int opcionRuta;
         int origen, destino;
         int cantPasajeros;
-        string nombreArchivo = "reservas.txt";
+        string archivoReservas = "reservas.txt";
         ListaReservas listaReservas;
         MapaRutas rutas;
-        GestorRutas gestorRutas;/*
+        GestorRutas gestorRutas;
+        /*
         PrecioTotal precio;*/
 
         auto validarFecha = [this](string& fecha) {
@@ -265,36 +268,36 @@ public:
         }
         else if (opcionAdicionales == "NO")
         {
-            Pasajero pasajero1(rutaSeleccionada.getPrecio());
-            pasajero1.seleccionarEquipaje();
-            pasajero1.seleccionarAsiento();
-            pasajeros.push_back(pasajero1);
+            Pasajero pasajero(rutaSeleccionada.getPrecio());
+            pasajero.seleccionarEquipaje();
+            pasajero.seleccionarAsiento();
+            pasajeros.push_back(pasajero);
             for (int i = 0;i < cantPasajeros - 1;i++) {
-                Pasajero pasajero(rutaSeleccionada.getPrecio(), pasajero1.getPrecioCabina(), pasajero1.getPrecioBodega(), pasajero1.getPrecioAsiento());
-                pasajeros.push_back(pasajero);
+                Pasajero clon(rutaSeleccionada.getPrecio(), pasajero.getPrecioCabina(), pasajero.getPrecioBodega(), pasajero.getPrecioAsiento());
+                pasajeros.push_back(clon);
             }
         }
-        // podamos calcular el precio total...si se selecciona equipaje y asiento por pasajero esta informacion.. en la reserva final si debe salir los detalles de equipaje....
-        //float precioTotal = precio.calcularPrecioTotal(rutaSeleccionada);
-
-        //cout << "\t\t\t\t\tEl precio total de la reserva es: S/." << precioTotal << endl;
 
         Reserva reserva(fecha, rutas.getNombreLugar(destino), rutas.getNombreLugar(origen), cantPasajeros);
-        /*   Pasajero* pasajeros = new Pasajero[cantPasajeros];*/
         listaReservas.agregarReserva(reserva);
-        listaReservas.guardarListaEnArchivo(nombreArchivo);
-        gestorRutas.guardarRutaEnArchivo(opcionRuta - 1, nombreArchivo);
+        listaReservas.guardarListaEnArchivo(archivoReservas);
+        gestorRutas.guardarRutaEnArchivo(opcionRuta - 1, archivoReservas);
 
+		for (int i = 0;i < pasajeros.size();i++) {
+			pasajeros[i].pedirDatosPersonales();
+			pasajeros[i].setIdReserva(reserva.getIdReserva());
+			pasajeros[i].mostrarResumen();
+		}
+		string archivoPasajeros = "pasajeros.txt";
+		GestorPasajero gestorPasajero(pasajeros);
+		gestorPasajero.guardarPasajerosEnArchivo(archivoPasajeros);
 
-        //string nombreArchivo = "reserva.txt";
-        //listaReservas.guardarListaEnArchivo(nombreArchivo);
-        //cout << "\nReserva guardada " << endl;
     }
     void menuPricipal() {
         system("cls");
         cout << "\t\t\t ----------------- MENU ----------------- " << endl;
         cout << "\t\t\t|                                       |" << endl;
-        cout << "\t\t\t|1. Iniciar sesión                      |" << endl;
+        cout << "\t\t\t|1. Iniciar sesion                      |" << endl;
         cout << "\t\t\t|2. Iniciar Reserva sin cuenta          |" << endl;
         cout << "\t\t\t|3. Salir                               |" << endl;
         cout << "\t\t\t|                                       |" << endl;
