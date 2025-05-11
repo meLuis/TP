@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "Reserva.h"
 using namespace std;
 
 class Pasajero {

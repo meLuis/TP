@@ -6,7 +6,6 @@
 #include <vector>
 #include <set>
 
-
 using namespace  std;
 struct NodoReserva {
     Reserva reserva;
