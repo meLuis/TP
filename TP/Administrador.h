@@ -17,7 +17,7 @@ public:
 	};
 
 	void guardarUsuarioArchivo(Usuario& user) {
-		ofstream archivo("usuarios.txt", ios::app);
+		ofstream archivo("Archivos//usuarios.txt", ios::app);
 		if (!archivo) {
 			cout << "Error al abrir el archivo." << endl;
 			return;

@@ -8,8 +8,6 @@
 #include "GestorPasajero.h"
 #include "Cliente.h"
 #include "ColaPagos.h"
-
-#include <limits>
 using namespace std;
 
 class Menu
@@ -243,7 +241,7 @@ public:
         archivoEscritura.close();
     }
     void buscarReservaPorID() {
-        vector<Reserva> reservas = Reserva::leerReservasDesdeArchivo("reserva.txt");
+        vector<Reserva> reservas = Reserva::leerReservasDesdeArchivo(archivoReservas);
 
         if (reservas.empty()) {
             cout << "\t\t\tNo hay reservas registradas." << endl;
@@ -269,7 +267,7 @@ public:
             if (opcion == 1) {
                 if (encontrada->getEstado() != "Anulada") {
                     encontrada->setEstado("Anulada");
-                    anularReserva(reservas, "reserva.txt");
+                    anularReserva(reservas, archivoReservas);
                     cout << "\t\t\t Reserva anulada correctamente." << endl;
                 }
                 else {

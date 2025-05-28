@@ -30,7 +30,7 @@ public:
         }
     }
     void cargarIdsExistentes() {
-        ifstream archivo("reserva.txt");
+        ifstream archivo("Archivos//reserva.txt");
         if (!archivo) return;
 
         string linea;
