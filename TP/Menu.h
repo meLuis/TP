@@ -292,34 +292,38 @@ public:
     }
 
 	void menuAdministrador(Usuario* user) {
-		int opcion;
-		do {
-			system("cls");
-			user->mostrarBienvenida();
+	    int opcion;
+	    do {
+	        system("cls");
+	        user->mostrarBienvenida();
 
-			cout << "\t\t\t------------ MENU ADMINISTRADOR ------------" << endl;
-			cout << "  " << endl;
-			cout << "\t\t\t1. Buscar reserva" << endl;
-			cout << "\t\t\t2. Salir" << endl;
-			cout << "\t\t\t-------------------------------------------" << endl;
-			cout << "\t\t\tSeleccione una opción: ";
-			cin >> opcion;
-			cin.ignore();
+	        cout << "\t\t\t------------ MENU ADMINISTRADOR ------------" << endl;
+	        cout << "  " << endl;
+	        cout << "\t\t\t1. Buscar reserva" << endl;
+	        cout << "\t\t\t2. Salir" << endl;
+	        cout << "\t\t\t-------------------------------------------" << endl;
+	        cout << "\t\t\tSeleccione una opción: ";
 
+	        string input;
+	        getline(cin, input);
+	        try {
+	            opcion = stoi(input);
+	        } catch (...) {
+	            opcion = -1; // Valor inválido
+	        }
 
-			switch (opcion) {
-			case 1:
-				buscarReservaPorID();
-				system("pause>0");
-				break;
-
-			case 2:
-				break;
-			default:
-				cout << "\t\t\tOpcion invalida." << endl;
-				system("pause>0");
-			}
-		} while (opcion != 2);
+	        switch (opcion) {
+	        case 1:
+	            buscarReservaPorID();
+	            system("pause>0");
+	            break;
+	        case 2:
+	            break;
+	        default:
+	            cout << "\t\t\tOpcion invalida." << endl;
+	            system("pause>0");
+	        }
+	    } while (opcion != 2);
 	}
 
 

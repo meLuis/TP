@@ -105,3 +105,279 @@
 
 
 
+			--------------------- COMPROBANTE DE PAGO ---------------------
+			ID Reserva: 6742
+				--------------------------------------------------
+			Datos del Pagador:
+			Nombre: onjo
+			Apellido: noini
+			DNI: 325
+				--------------------------------------------------
+
+			Fecha: 12/12/2025
+			Origen: Tarapoto (TPP)	 Destino: Chiclayo (CIX)
+			Hora Salida: 06:00	Hora llegada: 07:30
+			Detalles de Pasajeros:
+				--------------------------------------------------
+			Nombre: qqwr
+			Apellido: qewr
+			DNI: 214536
+			Asiento: 
+			Precio Ruta: S/. 260
+			Equipaje de Cabina: S/. 97.04
+			Equipaje de Bodega: S/. 102.54
+			Impuesto General a la Venta (18%): S/. 82.7244
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 617.304
+				--------------------------------------------------
+			Total a Pagar: S/. 617.304
+			Gracias por su compra!
+
+
+
+			--------------------- COMPROBANTE DE PAGO ---------------------
+			ID Reserva: 6495
+				--------------------------------------------------
+			Datos del Pagador:
+			Nombre: wfe
+			Apellido: vegr
+			DNI: 124
+				--------------------------------------------------
+
+			Fecha: 12/12/2025
+			Origen: Piura (PIU)	 Destino: Chiclayo (CIX)
+			Hora Salida: 09:00	Hora llegada: 09:45
+			Detalles de Pasajeros:
+				--------------------------------------------------
+			Nombre: qewr
+			Apellido: qrew
+			DNI: 13244
+			Asiento: 6D
+			Precio Ruta: S/. 190
+			Equipaje de Cabina: S/. 97.04
+			Equipaje de Bodega: S/. 102.54
+			Precio Asiento: S/. 50
+			Impuesto General a la Venta (18%): S/. 79.1244
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 593.704
+				--------------------------------------------------
+			Total a Pagar: S/. 593.704
+			Gracias por su compra!
+
+
+
+			--------------------- COMPROBANTE DE PAGO ---------------------
+			ID Reserva: 2828
+				--------------------------------------------------
+			Datos del Pagador:
+			Nombre: qw
+			Apellido: qwe
+			DNI: 132442
+				--------------------------------------------------
+
+			Fecha: 12/12/2025
+			Origen: Tarapoto (TPP)	 Destino: Cusco (CUZ)
+			Hora Salida: 07:15	Hora llegada: 09:30
+			Detalles de Pasajeros:
+				--------------------------------------------------
+			Nombre: qew
+			Apellido: qew
+			DNI: 134
+			Asiento: 
+			Precio Ruta: S/. 330
+			Equipaje de Cabina: S/. 97.04
+			Equipaje de Bodega: S/. 102.54
+			Impuesto General a la Venta (18%): S/. 95.3244
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 699.904
+				--------------------------------------------------
+			Nombre: qwere
+			Apellido: qwe
+			DNI: 1w24
+			Asiento: 
+			Precio Ruta: S/. 330
+			Equipaje de Cabina: S/. 97.04
+			Equipaje de Bodega: S/. 102.54
+			Impuesto General a la Venta (18%): S/. 95.3244
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 699.904
+				--------------------------------------------------
+			Total a Pagar: S/. 1399.81
+			Gracias por su compra!
+
+
+
+			--------------------- COMPROBANTE DE PAGO ---------------------
+			ID Reserva: 1708
+				--------------------------------------------------
+			Datos del Pagador:
+			Nombre: wgev
+			Apellido: wgr
+			DNI: 1453264
+				--------------------------------------------------
+
+			Fecha: 12/12/2025
+			Origen: Chiclayo (CIX)	 Destino: Trujillo (TRU)
+			Hora Salida: 09:45	Hora llegada: 11:00
+			Detalles de Pasajeros:
+				--------------------------------------------------
+			Nombre: wge
+			Apellido: fwe
+			DNI: 1245364
+			Asiento: 
+			Precio Ruta: S/. 235
+			Equipaje de Cabina: S/. 97.04
+			Equipaje de Bodega: S/. 102.54
+			Impuesto General a la Venta (18%): S/. 78.2244
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 587.804
+				--------------------------------------------------
+			Nombre: wbr
+			Apellido: ebrt
+			DNI: 213465765
+			Asiento: 
+			Precio Ruta: S/. 235
+			Equipaje de Cabina: S/. 97.04
+			Equipaje de Bodega: S/. 102.54
+			Impuesto General a la Venta (18%): S/. 78.2244
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 587.804
+				--------------------------------------------------
+			Total a Pagar: S/. 1175.61
+			Gracias por su compra!
+
+
+
+			--------------------- COMPROBANTE DE PAGO ---------------------
+			ID Reserva: 1371
+				--------------------------------------------------
+			Datos del Pagador:
+			Nombre: wg
+			Apellido: weg
+			DNI: 124
+				--------------------------------------------------
+
+			Fecha: 12/12/2025
+			Origen: Piura (PIU)	 Destino: Chiclayo (CIX)
+			Hora Salida: 07:45	Hora llegada: 08:30
+			Detalles de Pasajeros:
+				--------------------------------------------------
+			Nombre: wgr
+			Apellido: wegre
+			DNI: 314
+			Asiento: 6C
+			Precio Ruta: S/. 185
+			Equipaje de Cabina: S/. 97.04
+			Precio Asiento: S/. 50
+			Impuesto General a la Venta (18%): S/. 59.7672
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 466.807
+				--------------------------------------------------
+			Nombre: few
+			Apellido: weg
+			DNI: 235
+			Asiento: 
+			Precio Ruta: S/. 185
+			Equipaje de Cabina: S/. 97.04
+			Precio Asiento: S/. 50
+			Impuesto General a la Venta (18%): S/. 50.7672
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 407.807
+				--------------------------------------------------
+			Total a Pagar: S/. 874.614
+			Gracias por su compra!
+
+
+
+			--------------------- COMPROBANTE DE PAGO ---------------------
+			ID Reserva: 7470
+				--------------------------------------------------
+			Datos del Pagador:
+			Nombre: gwrerg
+			Apellido: egregr
+			DNI: 13241324
+				--------------------------------------------------
+
+			Fecha: 12/12/2025
+			Origen: Piura (PIU)	 Destino: Chiclayo (CIX)
+			Hora Salida: 09:00	Hora llegada: 09:45
+			Detalles de Pasajeros:
+				--------------------------------------------------
+			Nombre: wg4
+			Apellido: wegre
+			DNI: 12412
+			Asiento: 
+			Precio Ruta: S/. 190
+			Equipaje de Cabina: S/. 97.04
+			Impuesto General a la Venta (18%): S/. 51.6672
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 413.707
+				--------------------------------------------------
+			Nombre: wegewg
+			Apellido: gweewg
+			DNI: 124124
+			Asiento: 
+			Precio Ruta: S/. 190
+			Equipaje de Cabina: S/. 97.04
+			Impuesto General a la Venta (18%): S/. 51.6672
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 413.707
+				--------------------------------------------------
+			Total a Pagar: S/. 827.414
+			Gracias por su compra!
+
+
+
+			--------------------- COMPROBANTE DE PAGO ---------------------
+			ID Reserva: 4252
+				--------------------------------------------------
+			Datos del Pagador:
+			Nombre: wrg
+			Apellido: egr
+			DNI: 124
+				--------------------------------------------------
+
+			Fecha: 12/12/2025
+			Origen: Piura (PIU)	 Destino: Cajamarca (CJA)
+			Hora Salida: 07:45	Hora llegada: 09:15
+			Detalles de Pasajeros:
+				--------------------------------------------------
+			Nombre: nuqf
+			Apellido: qefe
+			DNI: 124
+			Asiento: 
+			Precio Ruta: S/. 230
+			Equipaje de Cabina: S/. 97.04
+			Equipaje de Bodega: S/. 102.54
+			Impuesto General a la Venta (18%): S/. 77.3244
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 581.904
+				--------------------------------------------------
+			Nombre: wger
+			Apellido: egrr
+			DNI: 124
+			Asiento: 
+			Precio Ruta: S/. 230
+			Equipaje de Cabina: S/. 97.04
+			Equipaje de Bodega: S/. 102.54
+			Impuesto General a la Venta (18%): S/. 77.3244
+			Cargo Administrativo: S/. 45.00
+			Cargo Tarifa unificada de uso de aeropuerto: S/.30
+			Precio Total: S/. 581.904
+				--------------------------------------------------
+			Total a Pagar: S/. 1163.81
+			Gracias por su compra!
+
+
+
