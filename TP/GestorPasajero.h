@@ -5,11 +5,19 @@
 class GestorPasajero {
 private:
 	vector<Pasajero> pasajeros;
+	float precioTotal;
 public:
 	GestorPasajero() {}
     GestorPasajero(vector<Pasajero>pasajeros) {
 		this->pasajeros = pasajeros;
     }
+
+	float getPrecioTotal() {
+		precioTotal = 0;
+		for (auto& pasajero : this->pasajeros) {
+			precioTotal += pasajero.calcularPrecioPasajero();
+		}
+	}
 
 	void guardarPasajerosEnArchivo(const string& nombreArchivo) {
 		ofstream archivo(nombreArchivo, ios::app);

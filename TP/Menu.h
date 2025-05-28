@@ -6,14 +6,26 @@
 #include "Administrador.h"
 #include "GestorRutas.h"
 #include "GestorPasajero.h"
-#include "Pasajero.h"
 #include "Cliente.h"
+#include "ColaPagos.h"
 
+#include <limits>
 using namespace std;
 
 class Menu
 {
 private:
+    ColaPagos <Pago>colaPagos;
+    ListaReservas<Reserva> listaReservas;
+    string fecha;
+    string opcionAdicionales;
+    int opcionRuta;
+    int origen, destino;
+    int cantPasajeros;
+    string archivoReservas = "Archivos//reserva.txt";
+    string archivoPasajeros = "Archivos//pasajeros.txt";
+    MapaRutas rutas;
+    GestorRutas gestorRutas;
     int diaActual, mesActual, anioActual;
     void obtenerFechaActual() {
         time_t tiempoActual = time(nullptr);
@@ -31,7 +43,7 @@ public:
 
     ~Menu() {}
     void guardarUsuarioArchivo(Usuario& user) {
-        ofstream archivo("usuarios.txt", ios::app);
+        ofstream archivo("Archivos//usuarios.txt", ios::app);
         if (!archivo) {
             cout << "Error al abrir el archivo." << endl;
             return;
@@ -93,7 +105,7 @@ public:
             }
         } while (contrasenaIngresada.empty());
 
-        ifstream archivo("usuarios.txt");
+        ifstream archivo("Archivos//usuarios.txt");
         if (!archivo) {
             cout << "No hay usuarios registrados." << endl;
             return nullptr;
@@ -130,20 +142,105 @@ public:
         return nullptr;
     }
 
-    void anularReserva(const vector<Reserva>& reservas, const string& nombreArchivo) {
-        ofstream archivo(nombreArchivo, ios::trunc);  // trunc para sobrescribir
-
-        if (!archivo.is_open()) {
+    void anularReserva(const vector<Reserva>& reservas, const string& archivoReservas) {
+        vector<string> todasLasLineas;
+        ifstream archivoLectura(archivoReservas);
+        if (archivoLectura.is_open()) {
+            string linea;
+            while (getline(archivoLectura, linea)) {
+                todasLasLineas.push_back(linea);
+            }
+            archivoLectura.close();
+        }
+        else
+        {
             cout << "\t\t\t Error al abrir el archivo." << endl;
             return;
         }
 
-        for (const Reserva& r : reservas) {
-            r.guardarEnArchivo(archivo);
-            archivo << endl;
+        //IA
+        // Ahora abrir el archivo para escribir
+        ofstream archivoEscritura(archivoReservas, ios::trunc);
+
+        if (!archivoEscritura.is_open()) {
+            cout << "\t\t\t Error al abrir el archivo para escritura." << endl;
+            return;
         }
 
-        archivo.close();
+        // Mantener un registro de los IDs de reserva que han sido anulados
+        vector<int> idsAnulados;
+        for (const Reserva& r : reservas) {
+            if (r.getEstado() == "Anulada") {
+                idsAnulados.push_back(r.getIdReserva());
+            }
+        }
+
+        // Procesar cada línea del archivo
+        for (const string& linea : todasLasLineas) {
+            // Verificar si esta línea es una reserva (contiene suficientes '|')
+            int contadorDelimitadores = 0;
+            for (char c : linea) {
+                if (c == '|') contadorDelimitadores++;
+            }
+
+            // Si tiene suficientes delimitadores para ser una reserva
+            if (contadorDelimitadores >= 5) {
+                // Extraer el ID de la reserva
+                size_t pos = linea.find('|');
+                if (pos != string::npos) {
+                    string idStr = linea.substr(0, pos);
+                    try {
+                        int id = stoi(idStr);
+
+                        // Si esta reserva debe ser anulada
+                        bool debeAnular = false;
+                        for (int idAnulado : idsAnulados) {
+                            if (id == idAnulado) {
+                                debeAnular = true;
+                                break;
+                            }
+                        }
+
+                        if (debeAnular) {
+                            // Reconstruir la línea con el estado "Anulada"
+                            vector<string> campos;
+                            string temp = linea;
+                            size_t posTemp;
+
+                            // Dividir la línea en campos
+                            while ((posTemp = temp.find('|')) != string::npos) {
+                                campos.push_back(temp.substr(0, posTemp));
+                                temp = temp.substr(posTemp + 1);
+                            }
+                            campos.push_back(temp); // Último campo
+
+                            // Cambiar el campo de estado (6º elemento, índice 5)
+                            if (campos.size() > 5) {
+                                campos[5] = "Anulada";
+                            }
+
+                            // Reconstruir la línea
+                            string nuevaLinea = "";
+                            for (size_t i = 0; i < campos.size(); i++) {
+                                nuevaLinea += campos[i];
+                                if (i < campos.size() - 1) nuevaLinea += "|";
+                            }
+
+                            archivoEscritura << nuevaLinea << endl;
+                            continue; // Pasar a la siguiente línea
+                        }
+                    }
+                    catch (const std::invalid_argument& e) {
+                        // No es un ID válido, mantener la línea original
+                    }
+                }
+            }
+
+            // Si no es una reserva o no necesita ser modificada, escribir la línea original
+            archivoEscritura << linea << endl;
+        }
+
+        archivoEscritura.close();
     }
     void buscarReservaPorID() {
         vector<Reserva> reservas = Reserva::leerReservasDesdeArchivo("reserva.txt");
@@ -194,52 +291,39 @@ public:
         system("pause>0");
     }
 
-    void menuAdministrador(Usuario* user) {
-        int opcion;
-        do {
-            system("cls");
-            user->mostrarBienvenida();
+	void menuAdministrador(Usuario* user) {
+		int opcion;
+		do {
+			system("cls");
+			user->mostrarBienvenida();
 
-            cout << "\t\t\t------------ MENU ADMINISTRADOR ------------" << endl;
-            cout << "  " << endl;
-            cout << "\t\t\t1. Buscar reserva" << endl;
-            cout << "\t\t\t2. Modificar reserva" << endl;
-            cout << "\t\t\t3. Eliminar reserva" << endl;
-            cout << "\t\t\t4. Ordenar reservas" << endl;
-            cout << "\t\t\t5. Salir" << endl;
-            cout << "\t\t\t-------------------------------------------" << endl;
-            cout << "\t\t\tSeleccione una opción: ";
-            cin >> opcion;
-            cin.ignore();
+			cout << "\t\t\t------------ MENU ADMINISTRADOR ------------" << endl;
+			cout << "  " << endl;
+			cout << "\t\t\t1. Buscar reserva" << endl;
+			cout << "\t\t\t2. Salir" << endl;
+			cout << "\t\t\t-------------------------------------------" << endl;
+			cout << "\t\t\tSeleccione una opción: ";
+			cin >> opcion;
+			cin.ignore();
 
 
-            switch (opcion) {
-            case 1: cout << "\t\t\tBuscar :)\n"; break;
-            case 2: cout << "\t\t\tModificar :)\n"; break;
-            case 3: cout << "\t\t\tEliminar :)\n"; break;
-            case 4: cout << "\t\t\tOrdenar :)\n"; break;
-            case 5: cout << "\t\t\tSaliendo al menú principal...\n"; break;
-            default: cout << "\t\t\tOpción inválida.\n";
-            }
+			switch (opcion) {
+			case 1:
+				buscarReservaPorID();
+				system("pause>0");
+				break;
 
-            system("pause");
-        } while (opcion != 5);
-    }
+			case 2:
+				break;
+			default:
+				cout << "\t\t\tOpcion invalida." << endl;
+				system("pause>0");
+			}
+		} while (opcion != 2);
+	}
 
 
     void realizarReservas() {
-        string fecha;
-        string opcionAdicionales;
-        int opcionRuta;
-        int origen, destino;
-        int cantPasajeros;
-        string archivoReservas = "reservas.txt";
-        ListaReservas listaReservas;
-        MapaRutas rutas;
-        GestorRutas gestorRutas;
-        /*
-        PrecioTotal precio;*/
-
         auto validarFecha = [this](string& fecha) {
             if (fecha.length() != 10 || fecha[2] != '/' || fecha[5] != '/') {
                 cout << "\t\t\tFecha invalida. Formato correcto: DD/MM/AAAA" << endl;
@@ -286,23 +370,20 @@ public:
         cout << "\t\t\t   Ingrese la cantidad de pasajeros: ";
         cin >> cantPasajeros;
 
-        //Reserva reserva(fecha, rutas.getNombreLugar(destino), rutas.getNombreLugar(origen), cantPasajeros);
-        //Pasajero* pasajeros = new Pasajero[cantPasajeros];
-        //listaReservas.agregarReserva(reserva);
-        //listaReservas.guardarListaEnArchivo(nombreArchivo);
-
         cout << "\t\t\t Buscar.... " << endl;
 
         system("pause>0");
         system("cls");
 
         string claveRuta = rutas.getSiglasLugar(origen) + "-" + rutas.getSiglasLugar(destino);
-        gestorRutas.cargarDesdeArchivo("rutas.txt", claveRuta);
-        gestorRutas.mostrarRutas();
+        gestorRutas.cargarDesdeArchivo("Archivos//rutas.txt", claveRuta);
+        gestorRutas.imprimirRutas();
 
         cin >> opcionRuta;
         Ruta rutaSeleccionada = gestorRutas.getRuta(opcionRuta - 1);
-        //gestor.guardarRutaEnArchivo(opcionRuta-1, nombreArchivo);
+
+        Reserva reserva(fecha, rutas.getNombreLugar(destino), rutas.getNombreLugar(origen), cantPasajeros);
+        listaReservas.agregarReserva(reserva);
 
         system("pause>0");
         system("cls");
@@ -324,7 +405,7 @@ public:
             for (int i = 0; i < cantPasajeros; i++)
             {
                 cout << "\n\t\t\tPasajero " << i + 1 << ": " << endl;
-                Pasajero pasajero(rutaSeleccionada.getPrecio());
+                Pasajero pasajero(rutaSeleccionada.getPrecio(),reserva.getIdReserva());
                 pasajero.seleccionarEquipaje();
                 pasajero.seleccionarAsiento();
                 pasajeros.push_back(pasajero);
@@ -332,12 +413,12 @@ public:
         }
         else if (opcionAdicionales == "NO")
         {
-            Pasajero pasajero(rutaSeleccionada.getPrecio());
+            Pasajero pasajero(rutaSeleccionada.getPrecio(),reserva.getIdReserva());
             pasajero.seleccionarEquipaje();
             pasajero.seleccionarAsiento();
             pasajeros.push_back(pasajero);
             for (int i = 0;i < cantPasajeros - 1;i++) {
-                Pasajero clon(rutaSeleccionada.getPrecio(), pasajero.getPrecioCabina(), pasajero.getPrecioBodega(), pasajero.getPrecioAsiento());
+                Pasajero clon(rutaSeleccionada.getPrecio(), pasajero.getPrecioCabina(), pasajero.getPrecioBodega(), pasajero.getPrecioAsiento(),pasajero.getIdReserva());
                 pasajeros.push_back(clon);
             }
         }
@@ -345,27 +426,32 @@ public:
         system("pause>0");
         system("cls");
 
-        Reserva reserva(fecha, rutas.getNombreLugar(destino), rutas.getNombreLugar(origen), cantPasajeros);
-        listaReservas.agregarReserva(reserva);
-        listaReservas.guardarListaEnArchivo(archivoReservas);
-        gestorRutas.guardarRutaEnArchivo(opcionRuta - 1, archivoReservas);
-
-
         cout << "\t\t\t----------------------------- Registro Pasajeros -------------------------------" << endl;
 		for (int i = 0;i < pasajeros.size();i++) {
+			cout << "\n\t\t\tPasajero " << i + 1 << ": " << endl;
 			pasajeros[i].pedirDatosPersonales();
-			pasajeros[i].setIdReserva(reserva.getIdReserva());
-			pasajeros[i].mostrarResumen();
 		}
 
         system("pause>0");
         system("cls");
-        cout << "\t\t\t----------------------------- Resumen de Pasajeros -------------------------------" << endl;
-        for (int i = 0;i < pasajeros.size();i++) {
-            pasajeros[i].mostrarResumen();
+
+        float precioTotal = 0.0f;
+        for (auto& pasajero : pasajeros) {
+            precioTotal += pasajero.calcularPrecioPasajero();
         }
 
-		string archivoPasajeros = "pasajeros.txt";
+        Pago pago(precioTotal, pasajeros, reserva, rutaSeleccionada, reserva.getIdReserva());
+
+        cout << "\t\t\t--------------------------------- PAGO -----------------------------------" << endl;
+        pago.ingresarDatosPagador();
+        colaPagos.enqueue(pago);
+        cout << "\t\t\tPago agregado a la cola." << endl;
+
+        cout << "\t\t\t--------------------------------- PROCESANDO PAGOS -----------------------------------" << endl;
+        colaPagos.procesarPagos();
+
+        listaReservas.guardarListaEnArchivo(archivoReservas);
+        gestorRutas.guardarRutaEnArchivo(opcionRuta - 1, archivoReservas);
 		GestorPasajero gestorPasajero(pasajeros);
 		gestorPasajero.guardarPasajerosEnArchivo(archivoPasajeros);
 

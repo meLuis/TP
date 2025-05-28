@@ -6,7 +6,6 @@ using namespace std;
 
 class MapaRutas {
 private:
-
     enum Lugares {
         TPP = 0,
         PIU,
@@ -49,16 +48,24 @@ public:
         int origen;
         bool seleccion_valida = false;
 
-        while (!seleccion_valida) {
+        auto mostrarLugares = [&]() {
             for (int i = 0; i < NUM_LUGARES; i++) {
                 cout << "\t\t\t\t\t" << i + 1 << ". " << nombres_lugares[i] << endl;
             }
             cout << "\t\t\t\t\t0. Salir" << endl;
+            };
+
+        auto entradaValida = [&](int entrada) {
+            return entrada >= 1 && entrada <= NUM_LUGARES;
+            };
+
+        while (!seleccion_valida) {
+            mostrarLugares();
             cout << "\t\t\t\t\tIngrese su eleccion: ";
             cin >> origen;
 
             if (origen == 0) return -1;
-            else if (origen >= 1 && origen <= NUM_LUGARES) seleccion_valida = true;
+            else if (entradaValida(origen)) seleccion_valida = true;
             else cout << "\t\t\t\tOpcion invalida. Intente nuevamente." << endl;
         }
 
@@ -69,17 +76,18 @@ public:
         int destino;
         bool seleccion_valida = false;
         vector<int> destinos_disponibles;
-        bool hay_destinos = false;
 
-        for (int i = 0; i < NUM_LUGARES; i++) {
-            if (matriz_conexiones[origen][i] == 1 && i != origen) {
-                cout << "\t\t\t\t\t" << i + 1 << ". " << nombres_lugares[i] << endl;
-                destinos_disponibles.push_back(i);
-                hay_destinos = true;
+        auto mostrarDestinosDisponibles = [&]() {
+            for (int i = 0; i < NUM_LUGARES; i++) {
+                if (matriz_conexiones[origen][i] == 1 && i != origen) {
+                    cout << "\t\t\t\t\t" << i + 1 << ". " << nombres_lugares[i] << endl;
+                    destinos_disponibles.push_back(i);
+                }
             }
-        }
+            cout << "\t\t\t\t\t0. Volver al menu principal" << endl;
+            };
 
-        cout << "\t\t\t\t\t0. Volver al menu principal" << endl;
+        mostrarDestinosDisponibles();
 
         while (!seleccion_valida) {
             cout << "\t\t\t\t\tIngrese su eleccion: ";
@@ -87,8 +95,12 @@ public:
 
             if (destino == 0) return -1;
 
+            auto esDestinoValido = [&](int valor) {
+                return valor == destino - 1;
+                };
+
             for (int i : destinos_disponibles) {
-                if (destino - 1 == i) {
+                if (esDestinoValido(i)) {
                     seleccion_valida = true;
                     break;
                 }
@@ -96,10 +108,7 @@ public:
 
             if (!seleccion_valida) {
                 cout << "\t\t\t\tOpción invalida. Intente nuevamente." << endl;
-                //return seleccionarDestino(origen);
             }
-
-
         }
 
         return destino - 1;

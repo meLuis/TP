@@ -16,13 +16,14 @@ private:
     string estado;
     int cantPasajeros;
 public:
+    Reserva() : fecha(""), destino(""), origen(""), cantPasajeros(0), estado("Activo") {}
     Reserva(string f, string d, string o, int c) : fecha(f), destino(d), origen(o), cantPasajeros(c), estado("Activo") {
         idReserva = 0;
     }
 
     ~Reserva() {}
     void setIdReserva(int id) { idReserva = id; }
-    int getIdReserva() { return idReserva; }
+    int getIdReserva() const { return idReserva; }
     string getFecha() { return fecha; }
     string getDestino() { return destino; }
     string getOrigen() { return origen; }
@@ -33,9 +34,9 @@ public:
     void guardarEnArchivo(ofstream& archivo) const {
         archivo << idReserva << "|" << fecha << "|" << destino << "|" << origen << "|" << cantPasajeros << "|" << estado << "|";
     }
-    static vector<Reserva> leerReservasDesdeArchivo(const string& nombreArchivo) {
+    static vector<Reserva> leerReservasDesdeArchivo(const string& archivoReservas) {
         vector<Reserva> reservas;
-        ifstream archivo(nombreArchivo);
+        ifstream archivo(archivoReservas);
         string linea;
 
         while (getline(archivo, linea)) {

@@ -1,21 +1,18 @@
 #pragma once
 #include <iostream>
 #include "Reserva.h"
+#include "Nodo.h"
 #include <fstream>
 #include <string>
 #include <vector>
 #include <set>
 
 using namespace  std;
-struct NodoReserva {
-    Reserva reserva;
-    NodoReserva* siguiente;
 
-    NodoReserva(const Reserva& r) : reserva(r), siguiente(nullptr) {}
-};
+template <typename T>
 class ListaReservas {
 private:
-    NodoReserva* cabeza;
+    Nodo<T>* cabeza;
     set<int> idsExistentes;
 
 public:
@@ -25,9 +22,9 @@ public:
     }
 
     ~ListaReservas() {
-        NodoReserva* actual = cabeza;
+        Nodo<T>* actual = cabeza;
         while (actual != nullptr) {
-            NodoReserva* aBorrar = actual;
+            Nodo<T>* aBorrar = actual;
             actual = actual->siguiente;
             delete aBorrar;
         }
@@ -56,14 +53,14 @@ public:
         return id;
     }
 
-    void agregarReserva(Reserva& reserva) {
+    void agregarReserva(T& reserva) {
         reserva.setIdReserva(generarIdUnico());
-        NodoReserva* nuevoNodo = new NodoReserva(reserva);
+        Nodo<T>* nuevoNodo = new Nodo<T>(reserva);
         if (!cabeza) {
             cabeza = nuevoNodo;
         }
         else {
-            NodoReserva* actual = cabeza;
+            Nodo<T>* actual = cabeza;
             while (actual->siguiente != nullptr) {
                 actual = actual->siguiente;
             }
@@ -71,15 +68,15 @@ public:
         }
     }
 
-    void guardarListaEnArchivo(string& nombreArchivo) {
-        ofstream archivo(nombreArchivo, ios::app);
+    void guardarListaEnArchivo(string& archivoReservas) {
+        ofstream archivo(archivoReservas, ios::app);
         if (!archivo) {
             cout << "Error al abrir el archivo para guardar reservas." << endl;
             return;
         }
-        NodoReserva* actual = cabeza;
+        Nodo<T>* actual = cabeza;
         while (actual != nullptr) {
-            actual->reserva.guardarEnArchivo(archivo);
+            actual->dato.guardarEnArchivo(archivo);
             actual = actual->siguiente;
         }
         archivo.close();

@@ -1,10 +1,40 @@
 #pragma once
 #include "Ruta.h"
 #include <fstream>
+#include <functional>
 
 class GestorRutas {
 private:
     vector<Ruta> rutas;
+
+    void selectionSort(vector<Ruta>& arr, function<bool(Ruta&, Ruta&)> criterio) {
+        int n = arr.size();
+        for (int i = 0; i < n - 1; i++) {
+            int minIdx = i;
+            for (int j = i + 1; j < n; j++) {
+                if (!criterio(arr[minIdx], arr[j])) {
+                    minIdx = j;
+                }
+            }
+            if (minIdx != i) {
+                swap(arr[i], arr[minIdx]);
+            }
+        }
+    }
+
+    void bubbleSort(vector<Ruta>& arr, function<bool(Ruta&, Ruta&)> criterio) {
+        int n = arr.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (!criterio(arr[j], arr[j + 1])) {
+                    Ruta temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
 
 public:
     Ruta getRuta(int indice) {
@@ -14,6 +44,7 @@ public:
         }
         return rutas[indice];
     }
+
     void cargarDesdeArchivo(string archivoNombre, string origenDestinoID) {
         rutas.clear();
 
@@ -68,49 +99,46 @@ public:
 
         archivo.close();
     }
-
-    void mostrarRutas() {
+    void mostrarRutas(int index) {
+        if (index >= rutas.size()) return;
+        cout << "\n\n\t\t\t\t[" << index + 1 << "] ";
+        rutas[index].mostrar();
+        mostrarRutas(index + 1);
+    }
+    void imprimirRutas() {
         cout << "\t\t\t----------------------------- Vuelos Disponibles ------------------------------- ";
-        for (int i = 0; i < rutas.size(); i++) {
-            cout << "\n\n\t\t\t\t[" << i + 1 << "] ";
-            rutas[i].mostrar();
-        }
+        mostrarRutas(0);
         cout << "\t\t\tElige tu vuelo: ";
+    }
+    void selectionSegunCriterio(function<bool(Ruta&, Ruta&)> criterio) {
+        selectionSort(rutas, criterio);
+    }
+
+    void bubbleSegunCriterio(function<bool(Ruta&, Ruta&)> criterio) {
+        bubbleSort(rutas, criterio);
     }
 
     void ordenarPorPrecio() {
-        for (int i = 0; i < rutas.size() - 1; i++) {
-            for (int j = 0; j < rutas.size() - i - 1; j++) {
-                if (rutas[j].getPrecio() > rutas[j + 1].getPrecio()) {
-                    Ruta temp = rutas[j];
-                    rutas[j] = rutas[j + 1];
-                    rutas[j + 1] = temp;
-                }
-            }
-        }
+        selectionSegunCriterio([](Ruta& a, Ruta& b) {
+            return a.getPrecio() < b.getPrecio();
+            });
     }
 
     void ordenarPorDuracion() {
-        for (int i = 0; i < rutas.size() - 1; i++) {
-            for (int j = 0; j < rutas.size() - i - 1; j++) {
-                if (rutas[j].getDuracionEnMinutos() > rutas[j + 1].getDuracionEnMinutos()) {
-                    Ruta temp = rutas[j];
-                    rutas[j] = rutas[j + 1];
-                    rutas[j + 1] = temp;
-                }
-            }
-        }
+        bubbleSegunCriterio([](Ruta& a, Ruta& b) {
+            return a.getDuracionEnMinutos() < b.getDuracionEnMinutos();
+            });
     }
-    void guardarRutaEnArchivo(int indice,const string& nombreArchivo) {
-		Ruta ruta = getRuta(indice);
+
+    void guardarRutaEnArchivo(int indice, const string& nombreArchivo) {
+        Ruta ruta = getRuta(indice);
         ofstream archivo(nombreArchivo, ios::app);
         if (!archivo.is_open()) {
             cout << "Error abriendo el archivo para guardar" << endl;
             return;
         }
 
-        archivo << ruta.getHoraInicio() << "|"<< ruta.getHoraFin() << "|"<< ruta.getDuracion() << "|"<< ruta.getPrecio() << "\n";
+        archivo << ruta.getHoraInicio() << "|" << ruta.getHoraFin() << "|" << ruta.getDuracion() << "|" << ruta.getPrecio() << "\n";
         archivo.close();
     }
-
 };

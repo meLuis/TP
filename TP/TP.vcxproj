@@ -132,11 +132,14 @@
   <ItemGroup>
     <ClInclude Include="Administrador.h" />
     <ClInclude Include="Cliente.h" />
+    <ClInclude Include="ColaPagos.h" />
+    <ClInclude Include="GestorAsientos.h" />
     <ClInclude Include="GestorPasajero.h" />
     <ClInclude Include="GestorRutas.h" />
     <ClInclude Include="ListaReservas.h" />
     <ClInclude Include="MapaRutas.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Nodo.h" />
     <ClInclude Include="Pago.h" />
     <ClInclude Include="Pasajero.h" />
     <ClInclude Include="Reserva.h" />
